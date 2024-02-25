@@ -1,11 +1,18 @@
-import { crawlUrls } from './crawler';
+import { crawlUrls } from './services/crawler';
+import { subscribeToLinksReady } from './services/eventSubscriber';
+import { Config } from './config';
+import { log } from './utils/logger';
 
-const depth = 2;
+const depth = Config.getDepth();
+console.log('Depth:', depth);
 
-async function crawl(paths: string[], http: boolean) {
-  const links = await crawlUrls(paths, depth, http);
-  console.log('links:', links);
+async function crawlTask() {
+  try {
+    const links = await crawlUrls(['htmls/1.html'], depth, false);
+    log('Links ready:', links);
+  } catch (error) {
+    console.error('Error during crawling:', error);
+  }
 }
 
-crawl(['htmls/1.html'], false)
-  .then(() => crawl(['htmls/2.html', 'htmls/3.html'], false));
+crawlTask();
