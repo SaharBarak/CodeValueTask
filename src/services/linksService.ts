@@ -1,9 +1,5 @@
+// linksService.ts
 import { Repository } from '../repository/repository';
-import { LinksService } from '../services/linksService';
-
-const repository = new Repository(); // Instantiate Repository
-const linksService = new LinksService(repository); // Pass Repository to LinksService constructor
-
 
 class LinksService {
   private repository: Repository;
@@ -13,11 +9,11 @@ class LinksService {
   }
 
   public getAllLinks(): Map<string, string[]> {
-    return this.repository.getAllLinks();
+    return this.repository.getAllLinks(); // Implement logic to get all links from the repository
   }
 
   public getLinksByPath(path: string): string[] | undefined {
-    return this.repository.getDirectLinks(path);
+    return this.repository.getLinks(path); // Implement logic to get links by path from the repository
   }
 }
 

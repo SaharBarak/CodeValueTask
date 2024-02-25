@@ -1,17 +1,16 @@
 // crawlService.ts
 import { crawlUrls } from './crawler';
-import { subscribeToLinksReady } from './eventSubscriber';
-import { Config } from '../config';
 import { log } from '../utils/logger';
 import { Repository } from '../repository/repository';
+import { Config } from '../config';
 
 class CrawlService {
   private repository: Repository;
   private depth: number;
 
-  constructor(repository: Repository, depth: number) {
-    this.repository = repository;
-    this.depth = depth;
+  constructor() {
+    this.repository = Repository.getInstance(); // Get singleton instance of Repository
+    this.depth = Config.getDepth(); // Get depth from configuration
     console.log('Depth:', this.depth);
   }
 
@@ -19,11 +18,10 @@ class CrawlService {
     try {
       const links = await crawlUrls(paths, this.depth, http);
       log('Links:', links);
-      // Save the links to the repository
-      this.saveLinks(paths, links); // Wrap links in an array to match the expected type
+      this.saveLinks(paths, links);
     } catch (error) {
       console.error('Error during crawling:', error);
-      throw error; // Propagate the error
+      throw error;
     }
   }
 

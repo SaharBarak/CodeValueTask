@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express';
+// crawlRoutes.ts
+import express from 'express';
 import { crawlHandler } from '../controller/crawlsController';
 
 const crawlRoutes = express.Router();

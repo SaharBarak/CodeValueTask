@@ -1,15 +1,13 @@
+// crawlsController.ts
 import { Request, Response } from 'express';
-import { crawl } from '../services/crawlService';
-import { Config } from '../config';
+import { CrawlService } from '../services/crawlService';
+
+const crawlService = new CrawlService(); // Instantiate CrawlService
 
 export function crawlHandler(req: Request, res: Response): void {
-  const { paths, depth, http } = req.body;
-  if (typeof depth !== 'number' || depth < 0 || depth > Config.MAX_DEPTH) {
-    res.status(400).json({ error: 'Invalid depth value' });
-    return;
-  }
+  const { paths, http } = req.body; // Extract paths and http from request body
 
-  crawl(paths, depth, http)
+  crawlService.crawl(paths, http)
     .then(() => {
       res.status(202).json({ message: 'Crawling initiated successfully' });
     })

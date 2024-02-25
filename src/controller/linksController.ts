@@ -1,8 +1,10 @@
+// linksController.ts
 import { Request, Response } from 'express';
 import { LinksService } from '../services/linksService';
-import { Repository } from '../repository/repository';
+import { Repository } from '../repository/repository'; // Import Repository
 
-const linksService = new LinksService(Repository); // Instantiate LinksService
+const repository = Repository.getInstance(); // Get singleton instance of Repository
+const linksService = new LinksService(repository); // Pass Repository instance to LinksService
 
 export function getAllLinksHandler(req: Request, res: Response): void {
   const links = linksService.getAllLinks();
