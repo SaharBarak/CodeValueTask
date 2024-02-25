@@ -4,7 +4,6 @@ import { LinksService } from '../services/linksService';
 const repository = new Repository(); // Instantiate Repository
 const linksService = new LinksService(repository); // Pass Repository to LinksService constructor
 
-// Now you can use linksService to call its methods
 
 class LinksService {
   private repository: Repository;

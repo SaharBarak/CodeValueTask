@@ -20,16 +20,16 @@ class CrawlService {
       const links = await crawlUrls(paths, this.depth, http);
       log('Links:', links);
       // Save the links to the repository
-      this.saveLinks(paths, [links]); // Wrap links in an array to match the expected type
+      this.saveLinks(paths, links); // Wrap links in an array to match the expected type
     } catch (error) {
       console.error('Error during crawling:', error);
       throw error; // Propagate the error
     }
   }
 
-  private saveLinks(paths: string[], links: string[][]): void {
+  private saveLinks(paths: string[], links: string[]): void {
     paths.forEach((path, index) => {
-      this.repository.set(path, links[index]);
+      this.repository.saveLinks(path, links);
     });
   }
 }

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { LinksService } from '../services/linksService';
 import { Repository } from '../repository/repository';
 
-const linksService = new LinksService(); // Instantiate LinksService
+const linksService = new LinksService(Repository); // Instantiate LinksService
 
 export function getAllLinksHandler(req: Request, res: Response): void {
   const links = linksService.getAllLinks();
